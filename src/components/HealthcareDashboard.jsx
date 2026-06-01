@@ -3,7 +3,7 @@ import { BarChart, Bar, PieChart, Pie, Cell, XAxis, YAxis, CartesianGrid, Toolti
 import { Bell, Users, Heart, Star, Circle } from 'lucide-react'
 import '../styles/HealthcareDashboard.css'
 import drSakilaImage from '../assets/dr. Sakila.jpeg'
-import csvData from '../assets/healthcare_patient_journey.csv?raw'
+import csvData from '../assets/data_pasien.csv?raw'
 import { parseCSV, calculateStats } from '../utils/csvParser'
 
 export default function HealthcareDashboard() {
