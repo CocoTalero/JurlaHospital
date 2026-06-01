@@ -5,5 +5,5 @@ import react from '@vitejs/plugin-react'
 export default defineConfig({
   base: '/JurlaHospital/',
   plugins: [react()],
-  assetsInclude: ['**/*.csv']
+  assetsInclude: ['**/*.csv', '**/*.jpeg', '**/*.jpg']
 })
