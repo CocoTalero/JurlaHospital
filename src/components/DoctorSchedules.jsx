@@ -4,7 +4,7 @@ import '../styles/DoctorSchedules.css'
 import drSakilaImage from '../assets/dr. Sakila.jpeg'
 import drTasyaImage from '../assets/dr. Tasya.jpeg'
 import drElaImage from '../assets/dr. Ela.jpeg'
-import drBasikalImage from 'src/assets/dr. Basikal.jpg'
+import drBasikalImage from 'src/assets/dr.Basikal.jpg'
 
 // Generator untuk 300 dokter (4 original + 296 random)
 const generateDoctorData = () => {
