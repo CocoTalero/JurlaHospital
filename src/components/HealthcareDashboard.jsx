@@ -7,7 +7,7 @@ import csvData from '../assets/data_pasien.csv?raw'
 import { parseCSV, calculateStats } from '../utils/csvParser'
 import { Menu } from 'lucide-react'
 
-export default function HealthcareDashboard() {
+export default function HealthcareDashboard({ sidebarOpen, onToggleSidebar }) {
   const [stats, setStats] = useState({
     totalPatients: 0,
     totalInpatients: 0,
@@ -88,7 +88,6 @@ export default function HealthcareDashboard() {
           </div>    
         </div>
       </div>
-    </div>
 
       {/* Main Content */}
       <div className="dashboard-content">
@@ -278,7 +277,6 @@ export default function HealthcareDashboard() {
             </div>
           </div>
         </div>
-
       </div>
     </div>
   )

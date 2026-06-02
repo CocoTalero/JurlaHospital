@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Search, Filter, Plus, MoreVertical, Pill } from 'lucide-react'
+import { Search, Filter, Plus, MoreVertical, Pill, Menu } from 'lucide-react'
 import '../styles/Pharmacy.css'
 import drSakilaImage from '../assets/dr. Sakila.jpeg'
 
@@ -48,7 +48,7 @@ const getStockStatusLabel = (status) => {
   }
 }
 
-export default function Pharmacy() {
+export default function Pharmacy({ sidebarOpen, onToggleSidebar }) {
   const [searchTerm, setSearchTerm] = useState('')
   const [selectedCategory, setSelectedCategory] = useState('All Categories')
 
@@ -64,9 +64,14 @@ export default function Pharmacy() {
       {/* Header */}
       <div className="pharmacy-header">
         <div className="header-content">
-          <div className="header-title">
-            <h1>Pharmacy Inventory</h1>
-            <p>Welcome back, Dr. House</p>
+          <div className="header-left">
+            <button className="hamburger-btn" onClick={onToggleSidebar} title="Toggle menu">
+              <Menu size={24} />
+            </button>
+            <div className="header-title">
+              <h1>Pharmacy Inventory</h1>
+              <p>Welcome back, Dr. House</p>
+            </div>
           </div>
           <div className="header-actions">
             <button className="btn-add-medicine">

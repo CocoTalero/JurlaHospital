@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Plus, Search, LayoutGrid, List, ChevronDown, Calendar } from 'lucide-react'
+import { Plus, Search, LayoutGrid, List, ChevronDown, Calendar, Menu } from 'lucide-react'
 import '../styles/DoctorSchedules.css'
 import drSakilaImage from '../assets/dr. Sakila.jpeg'
 import drTasyaImage from '../assets/dr. Tasya.jpeg'
@@ -178,7 +178,7 @@ const getStatusBadge = (status) => {
   }
 }
 
-export default function DoctorSchedules() {
+export default function DoctorSchedules({ sidebarOpen, onToggleSidebar }) {
   const [selectedDepartment, setSelectedDepartment] = useState('All Departments')
   const [viewMode, setViewMode] = useState('grid')
   const [searchTerm, setSearchTerm] = useState('')
@@ -195,9 +195,14 @@ export default function DoctorSchedules() {
       {/* Header */}
       <div className="schedules-header">
         <div className="header-content">
-          <div className="header-title">
-            <h1>Doctor Schedules</h1>
-            <p>Welcome back, dr. Sakila</p>
+          <div className="header-left">
+            <button className="hamburger-btn" onClick={onToggleSidebar} title="Toggle menu">
+              <Menu size={24} />
+            </button>
+            <div className="header-title">
+              <h1>Doctor Schedules</h1>
+              <p>Welcome back, dr. Sakila</p>
+            </div>
           </div>
           <div className="header-actions">
             <button className="btn-add-doctor">

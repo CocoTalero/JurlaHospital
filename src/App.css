@@ -26,6 +26,7 @@ body {
   position: relative;
 }
 
+/* Sidebar overlay for mobile */
 .sidebar-overlay {
   display: none;
   position: fixed;
@@ -35,23 +36,28 @@ body {
   bottom: 0;
   background: rgba(0, 0, 0, 0.5);
   z-index: 999;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+}
+
+.sidebar-overlay.active {
+  opacity: 1;
+  pointer-events: auto;
 }
 
 @media (max-width: 768px) {
   .sidebar-overlay {
     display: block;
   }
-}
 
-.header-stat-label {
-  font-size: 0.75em;
-  opacity: 0.8;
-}
+  body {
+    overflow: hidden;
+  }
 
-.header-stat-value {
-  font-size: 1.2em;
-  font-weight: 700;
-  margin-top: 2px;
+  .app-wrapper {
+    overflow: hidden;
+  }
 }
 
 /* KPI Cards */
@@ -61,6 +67,14 @@ body {
   gap: 8px;
   margin-bottom: 8px;
   padding: 8px 15px;
+}
+
+@media (max-width: 480px) {
+  .kpi-container {
+    grid-template-columns: repeat(2, 1fr);
+    padding: 8px 12px;
+    gap: 6px;
+  }
 }
 
 .kpi-card {
@@ -79,25 +93,11 @@ body {
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
 }
 
-.kpi-card.orange {
-  border-left-color: #ff9f43;
-}
-
-.kpi-card.red {
-  border-left-color: #ff6b6b;
-}
-
-.kpi-card.green {
-  border-left-color: #51cf66;
-}
-
-.kpi-card.yellow {
-  border-left-color: #ffd93d;
-}
-
-.kpi-card.cyan {
-  border-left-color: #4ecdc4;
-}
+.kpi-card.orange { border-left-color: #ff9f43; }
+.kpi-card.red    { border-left-color: #ff6b6b; }
+.kpi-card.green  { border-left-color: #51cf66; }
+.kpi-card.yellow { border-left-color: #ffd93d; }
+.kpi-card.cyan   { border-left-color: #4ecdc4; }
 
 .kpi-header {
   display: flex;
@@ -122,21 +122,10 @@ body {
   color: white;
 }
 
-.kpi-icon.blue {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-}
-
-.kpi-icon.orange {
-  background: linear-gradient(135deg, #ff9f43 0%, #ff6b6b 100%);
-}
-
-.kpi-icon.green {
-  background: linear-gradient(135deg, #51cf66 0%, #4ecdc4 100%);
-}
-
-.kpi-icon.red {
-  background: linear-gradient(135deg, #ff6b6b 0%, #f95555 100%);
-}
+.kpi-icon.blue   { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
+.kpi-icon.orange { background: linear-gradient(135deg, #ff9f43 0%, #ff6b6b 100%); }
+.kpi-icon.green  { background: linear-gradient(135deg, #51cf66 0%, #4ecdc4 100%); }
+.kpi-icon.red    { background: linear-gradient(135deg, #ff6b6b 0%, #f95555 100%); }
 
 .kpi-value {
   font-size: 1.4em;
@@ -164,6 +153,13 @@ body {
   padding: 0 15px;
 }
 
+@media (max-width: 768px) {
+  .charts-grid {
+    grid-template-columns: 1fr;
+    padding: 0 12px;
+  }
+}
+
 .chart-section {
   background: white;
   border-radius: 8px;
@@ -187,6 +183,7 @@ body {
   padding: 10px 15px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
   margin: 8px 15px;
+  overflow-x: auto;
 }
 
 .admissions-section h2 {
@@ -202,6 +199,7 @@ table {
   width: 100%;
   border-collapse: collapse;
   font-size: 0.8em;
+  min-width: 400px;
 }
 
 table thead {
@@ -217,6 +215,7 @@ table th {
   font-weight: 600;
   border-bottom: 1px solid #e9ecef;
   font-size: 0.75em;
+  white-space: nowrap;
 }
 
 table td {
@@ -235,52 +234,30 @@ table tr:hover {
   border-radius: 10px;
   font-size: 0.7em;
   font-weight: 600;
+  white-space: nowrap;
 }
 
-.status-critical {
-  background-color: #ffe0e0;
-  color: #d63031;
-}
+.status-critical   { background-color: #ffe0e0; color: #d63031; }
+.status-warning    { background-color: #fff3cd; color: #856404; }
+.status-stable     { background-color: #d4edda; color: #155724; }
+.status-discharged { background-color: #cfe2ff; color: #084298; }
 
-.status-warning {
-  background-color: #fff3cd;
-  color: #856404;
-}
-
-.status-stable {
-  background-color: #d4edda;
-  color: #155724;
-}
-
-.status-discharged {
-  background-color: #cfe2ff;
-  color: #084298;
-}
-
-/* Responsive */
+/* Responsive global header fix */
 @media (max-width: 768px) {
-  .charts-grid {
-    grid-template-columns: 1fr;
-  }
-
   .header-content {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 8px;
-  }
-
-  .header-info {
-    flex-direction: row;
-    gap: 10px;
-    width: 100%;
     flex-wrap: wrap;
-  }
-
-  .header-stat {
-    text-align: left;
+    gap: 10px;
   }
 
   .header-title h1 {
-    font-size: 1.2em;
+    font-size: 1.2em !important;
+  }
+
+  .header-title p {
+    font-size: 0.75em !important;
+  }
+
+  .user-info {
+    display: none !important;
   }
 }

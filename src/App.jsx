@@ -1,5 +1,6 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import './App.css'
+import './responsive-global.css'   // ← tambahkan ini
 import Sidebar from './components/Sidebar'
 import HealthcareDashboard from './components/HealthcareDashboard'
 import PatientRecords from './components/PatientRecords'
@@ -8,7 +9,22 @@ import Pharmacy from './components/Pharmacy'
 
 function App() {
   const [currentPage, setCurrentPage] = useState('dashboard')
-  const [sidebarOpen, setSidebarOpen] = useState(true)
+  const [isMobile, setIsMobile] = useState(window.innerWidth < 769)
+  const [sidebarOpen, setSidebarOpen] = useState(window.innerWidth >= 769)
+
+  useEffect(() => {
+    const handleResize = () => {
+      const mobile = window.innerWidth < 769
+      setIsMobile(mobile)
+      if (mobile) {
+        setSidebarOpen(false)
+      } else {
+        setSidebarOpen(true)
+      }
+    }
+    window.addEventListener('resize', handleResize)
+    return () => window.removeEventListener('resize', handleResize)
+  }, [])
 
   const renderPage = () => {
     switch (currentPage) {
@@ -27,8 +43,18 @@ function App() {
 
   return (
     <div className="app-wrapper">
-      <Sidebar isOpen={sidebarOpen} currentPage={currentPage} setCurrentPage={setCurrentPage} onClose={() => setSidebarOpen(false)} />
-      {sidebarOpen && <div className="sidebar-overlay" onClick={() => setSidebarOpen(false)}></div>}
+      <Sidebar
+        isOpen={sidebarOpen}
+        currentPage={currentPage}
+        setCurrentPage={setCurrentPage}
+        onClose={() => setSidebarOpen(false)}
+      />
+      {isMobile && (
+        <div
+          className={`sidebar-overlay ${sidebarOpen ? 'active' : ''}`}
+          onClick={() => setSidebarOpen(false)}
+        />
+      )}
       {renderPage()}
     </div>
   )
