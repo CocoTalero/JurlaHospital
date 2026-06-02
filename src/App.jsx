@@ -8,25 +8,27 @@ import Pharmacy from './components/Pharmacy'
 
 function App() {
   const [currentPage, setCurrentPage] = useState('dashboard')
+  const [sidebarOpen, setSidebarOpen] = useState(true)
 
   const renderPage = () => {
     switch (currentPage) {
       case 'dashboard':
-        return <HealthcareDashboard />
+        return <HealthcareDashboard sidebarOpen={sidebarOpen} onToggleSidebar={() => setSidebarOpen(!sidebarOpen)} />
       case 'patients':
-        return <PatientRecords />
+        return <PatientRecords sidebarOpen={sidebarOpen} onToggleSidebar={() => setSidebarOpen(!sidebarOpen)} />
       case 'doctors':
-        return <DoctorSchedules />
+        return <DoctorSchedules sidebarOpen={sidebarOpen} onToggleSidebar={() => setSidebarOpen(!sidebarOpen)} />
       case 'pharmacy':
-        return <Pharmacy />
+        return <Pharmacy sidebarOpen={sidebarOpen} onToggleSidebar={() => setSidebarOpen(!sidebarOpen)} />
       default:
-        return <HealthcareDashboard />
+        return <HealthcareDashboard sidebarOpen={sidebarOpen} onToggleSidebar={() => setSidebarOpen(!sidebarOpen)} />
     }
   }
 
   return (
     <div className="app-wrapper">
-      <Sidebar currentPage={currentPage} setCurrentPage={setCurrentPage} />
+      <Sidebar isOpen={sidebarOpen} currentPage={currentPage} setCurrentPage={setCurrentPage} onClose={() => setSidebarOpen(false)} />
+      {sidebarOpen && <div className="sidebar-overlay" onClick={() => setSidebarOpen(false)}></div>}
       {renderPage()}
     </div>
   )

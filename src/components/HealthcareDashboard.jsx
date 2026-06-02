@@ -5,6 +5,7 @@ import '../styles/HealthcareDashboard.css'
 import drSakilaImage from '../assets/dr. Sakila.jpeg'
 import csvData from '../assets/data_pasien.csv?raw'
 import { parseCSV, calculateStats } from '../utils/csvParser'
+import { Menu } from 'lucide-react'
 
 export default function HealthcareDashboard() {
   const [stats, setStats] = useState({
@@ -64,9 +65,14 @@ export default function HealthcareDashboard() {
       {/* Header */}
       <div className="dashboard-header">
         <div className="header-content">
-          <div className="header-title">
-            <h1>Dashboard Overview</h1>
-            <p>Welcome back, dr. Sakila</p>
+          <div className="header-left">
+            <button className="hamburger-btn" onClick={onToggleSidebar} title="Toggle menu">
+              <Menu size={24} />
+            </button>
+            <div className="header-title">
+              <h1>Dashboard Overview</h1>
+              <p>Welcome back, dr. Sakila</p>
+            </div>
           </div>
           <div className="header-actions">
             <Bell size={24} className="notification-icon" />
@@ -79,9 +85,10 @@ export default function HealthcareDashboard() {
                 <p>Head of Medical Records</p>
               </div>
             </div>
-          </div>
+          </div>    
         </div>
       </div>
+    </div>
 
       {/* Main Content */}
       <div className="dashboard-content">

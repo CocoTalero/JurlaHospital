@@ -23,8 +23,25 @@ body {
   height: 100vh;
   display: flex;
   overflow: hidden;
+  position: relative;
 }
 
+.sidebar-overlay {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 999;
+}
+
+@media (max-width: 768px) {
+  .sidebar-overlay {
+    display: block;
+  }
+}
 
 .header-stat-label {
   font-size: 0.75em;
